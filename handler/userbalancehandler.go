@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"rguldibi.com/golang-sqlite-sample/util"
+	"resulguldibi/golang-sqlite-sample/util"
 )
 
 func (handler UserBalanceHandler) HandleGetAllUserBalanceFunc(ctx *gin.Context) {

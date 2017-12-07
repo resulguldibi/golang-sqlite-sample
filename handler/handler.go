@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"rguldibi.com/golang-sqlite-sample/service"
+	"resulguldibi/golang-sqlite-sample/service"
 )
 
 type UserHandler struct{

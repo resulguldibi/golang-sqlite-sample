@@ -2,9 +2,9 @@ package service
 
 import(
 	"strings"
-	"rguldibi.com/golang-sqlite-sample/entity"
-	"rguldibi.com/golang-sqlite-sample/contract"
-	"rguldibi.com/golang-sqlite-sample/util"
+	"resulguldibi/golang-sqlite-sample/entity"
+	"resulguldibi/golang-sqlite-sample/contract"
+	"resulguldibi/golang-sqlite-sample/util"
 )
 
 func (service UserService) CreateUser(user entity.User) error {
