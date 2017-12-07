@@ -2,10 +2,10 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"rguldibi.com/SQLiteDemo/handler"
-	"rguldibi.com/SQLiteDemo/repository"
-	"rguldibi.com/SQLiteDemo/service"
-	"rguldibi.com/SQLiteDemo/factory"
+	"rguldibi.com/golang-sqlite-sample/handler"
+	"rguldibi.com/golang-sqlite-sample/repository"
+	"rguldibi.com/golang-sqlite-sample/service"
+	"rguldibi.com/golang-sqlite-sample/factory"
 )
 
 func NewServer() *gin.Engine {

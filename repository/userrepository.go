@@ -1,8 +1,8 @@
 package repository
 
 import(
-	"rguldibi.com/SQLiteDemo/entity"
-	"rguldibi.com/SQLiteDemo/util"
+	"rguldibi.com/golang-sqlite-sample/entity"
+	"rguldibi.com/golang-sqlite-sample/util"
 	"fmt"
 	"strings"
 )

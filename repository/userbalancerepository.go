@@ -1,7 +1,7 @@
 package repository
 
 import(
-	"rguldibi.com/SQLiteDemo/entity"
+	"rguldibi.com/golang-sqlite-sample/entity"
 )
 
 func (userBalanceRepository UserBalanceRepository) GetByUserId(userId int64) (interface{}, error) {

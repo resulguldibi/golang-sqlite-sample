@@ -1,8 +1,8 @@
 package service
 
 import(
-	"rguldibi.com/SQLiteDemo/entity"
-	"rguldibi.com/SQLiteDemo/util"
+	"rguldibi.com/golang-sqlite-sample/entity"
+	"rguldibi.com/golang-sqlite-sample/util"
 )
 
 func (service UserBalanceService) GetAllUserBalances() ([]*entity.UserBalance, error) {

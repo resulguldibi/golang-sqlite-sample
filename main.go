@@ -1,7 +1,7 @@
 package main
 
 import (
-	"rguldibi.com/SQLiteDemo/server"
+	"rguldibi.com/golang-sqlite-sample/server"
 )
 
 func main() {

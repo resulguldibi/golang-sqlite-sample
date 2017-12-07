@@ -3,7 +3,7 @@ package repository
 import(
 	"database/sql"
 	"reflect"
-	"rguldibi.com/SQLiteDemo/factory"
+	"rguldibi.com/golang-sqlite-sample/factory"
 )
 
 func (repository BaseRepository) GetConnection() *sql.DB {

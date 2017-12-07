@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"rguldibi.com/SQLiteDemo/contract"
-	"rguldibi.com/SQLiteDemo/entity"
-	"rguldibi.com/SQLiteDemo/util"
+	"rguldibi.com/golang-sqlite-sample/contract"
+	"rguldibi.com/golang-sqlite-sample/entity"
+	"rguldibi.com/golang-sqlite-sample/util"
 	"strconv"
 )
 

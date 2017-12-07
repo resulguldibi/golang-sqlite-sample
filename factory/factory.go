@@ -2,7 +2,7 @@
 package factory
 
 import(
-	"rguldibi.com/SQLiteDemo/entity"
+	"rguldibi.com/golang-sqlite-sample/entity"
 )
 
 var factoryList = make(map[string]IFactory)

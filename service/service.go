@@ -1,7 +1,7 @@
 package service
 
 import(
-	"rguldibi.com/SQLiteDemo/repository"
+	"rguldibi.com/golang-sqlite-sample/repository"
 )
 
 type UserService struct {
