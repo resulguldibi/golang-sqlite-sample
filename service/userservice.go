@@ -80,7 +80,7 @@ func (service UserService) SendMoney(sendMoneyRequest contract.SendMoneyRequest)
 
 func (service UserService) GetAllUsers() ([]*entity.User, error) {
 	defer service.userRepository.CloseConnection()
-	users, err := service.userRepository.GetAll("User", "select id,name,age from user")
+	users, err := service.userRepository.GetAllX("User", "select id,name,age from user")
 	util.CheckErr(err)
 
 	list := make([]*entity.User, 0, len(users.([]interface{})))

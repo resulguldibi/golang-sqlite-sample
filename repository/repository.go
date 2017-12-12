@@ -3,6 +3,7 @@ package repository
 import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/jmoiron/sqlx"
 )
 
 type IRepository interface {
@@ -26,7 +27,7 @@ type UserBalanceRepository struct {
 }
 
 type DBClient struct{
-	connection *sql.DB
+	pool *sqlx.DB
 }
 
 func NewUserRepository(dbClient *DBClient) UserRepository{
@@ -49,16 +50,17 @@ func NewDbClientFactory(driverName string, dataSourceName string) DBClientFactor
 func (dbCLientFactory DBClientFactory) NewDBClient() *DBClient{
 	client := &DBClient{}
 
-	connection, err := sql.Open(dbCLientFactory.driverName, dbCLientFactory.dataSourceName)
+	pool, err := Connect(dbCLientFactory.driverName, dbCLientFactory.dataSourceName)
 
 	if err !=nil{
 		panic(err)
 	}
 
-	client.connection = connection
+	client.pool = pool
 
 	return client
 }
+
 
 
 

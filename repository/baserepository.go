@@ -4,16 +4,17 @@ import(
 	"database/sql"
 	"reflect"
 	"resulguldibi/golang-sqlite-sample/factory"
+	"github.com/jmoiron/sqlx"
 )
 
-func (repository BaseRepository) GetConnection() *sql.DB {
-	return repository.dbClient.connection
+func (repository BaseRepository) GetConnection() *sqlx.DB {
+	return repository.dbClient.pool
 }
 
 func (repository BaseRepository) CloseConnection() error {
 
-	if repository.dbClient != nil && repository.dbClient.connection != nil {
-		return repository.dbClient.connection.Close()
+	if repository.dbClient != nil && repository.dbClient.pool != nil {
+		return repository.dbClient.pool.Close()
 	}
 
 	return nil
@@ -105,15 +106,25 @@ func (repository BaseRepository) GetAll(instanceType string, query string) (inte
 	return items, err
 }
 
-func Insert(db *sql.DB, query string, args ...interface{}) (result sql.Result, err error) {
+func (repository BaseRepository) GetAllX(instanceType string, query string) (interface{}, error) {
+
+	result, err := QueryX(repository.GetConnection(), query,instanceType)
+	if err != nil {
+		return nil, err
+	}
+
+	return result,nil	
+}
+
+func Insert(db *sqlx.DB, query string, args ...interface{}) (result sql.Result, err error) {
 	return exec(db, query, args...)
 }
 
-func Delete(db *sql.DB, query string, args ...interface{}) (result sql.Result, err error) {
+func Delete(db *sqlx.DB, query string, args ...interface{}) (result sql.Result, err error) {
 	return exec(db, query, args...)
 }
 
-func Update(db *sql.DB, query string, args ...interface{}) (result sql.Result, err error) {
+func Update(db *sqlx.DB, query string, args ...interface{}) (result sql.Result, err error) {
 	return exec(db, query, args...)
 }
 
@@ -121,13 +132,15 @@ func UpdateTransaction(tx *sql.Tx, query string, args ...interface{}) (result sq
 	return execTransaction(tx, query, args...)
 }
 
-func Connect(driverName, dataSourceName string) (*sql.DB, error) {
-	db, err := sql.Open(driverName, dataSourceName)
+func Connect(driverName, dataSourceName string) (*sqlx.DB, error) {
+	db, err := sqlx.Open(driverName, dataSourceName)
 	return db, err
 }
 
-func Query(db *sql.DB, query string, args ...interface{}) (result []map[string]interface{}, err error) {
+
+func Query(db *sqlx.DB, query string, args ...interface{}) (result []map[string]interface{}, err error) {
 	rows, err := db.Query(query, args...)
+
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +182,34 @@ func Query(db *sql.DB, query string, args ...interface{}) (result []map[string]i
 	return
 }
 
-func exec(db *sql.DB, query string, args ...interface{}) (result sql.Result, err error) {
+func QueryX(db *sqlx.DB, query string,instanceType string, args ...interface{}) (result []interface{}, err error) {
+	rows, err := db.Queryx(query, args...)
+
+	if err != nil {
+		return nil, err
+	}
+
+	err = rows.Err()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	result = make([]interface{}, 0)
+	for rows.Next() {
+		instance := factory.GetEntityInstance(instanceType)
+		rows.StructScan(instance)
+		result =append(result,instance)
+	}
+	rows.Close()
+	return
+}
+
+func exec(db *sqlx.DB, query string, args ...interface{}) (result sql.Result, err error) {
 
 	stmt, err := db.Prepare(query)
 	defer stmt.Close()
